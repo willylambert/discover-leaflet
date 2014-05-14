@@ -16,6 +16,7 @@ http://www.prodigia.org/discover-leaflet
 With bower :
 * **Bower**: `bower install discover-leaflet`
 
+You will need a webserver to run the presentation (like the node.js package http-server)
 
 ## Supported browsers
 
