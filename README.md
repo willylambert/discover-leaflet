@@ -14,7 +14,7 @@ http://www.prodigia.org/discover-leaflet
 ## Installation
 
 1*/ Download the latest release :
-https://github.com/willylambert/discover-leaflet/releases/tag/1.0.1
+https://github.com/willylambert/discover-leaflet/releases/tag/1.0.2
 
 2*/ Resolve dependencies with bower :
 * **Bower**: `bower update`
