@@ -20,8 +20,8 @@ https://github.com/willylambert/discover-leaflet/releases/tag/1.0.2
 * **Bower**: `bower update`
 
 You will need a webserver to run the presentation (like the node.js package http-server)
-`npm install http-server`
-`http-server`
+    npm install http-server
+    http-server
 
 Access the application from http://localhost:8080
 
