@@ -1,0 +1,221 @@
+<html>
+	<head>
+		<title>A la découverte de Leaflet - by @willylambert</title>
+		
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+        <!--Librairies managed by Bower-->
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        
+        <!--Leaflet-->
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+      
+        <!--Plugins Leaflet-->
+		<script src="lib/leaflet.plugins/leaflet.animated-marker.js"></script>
+        <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+        <!--KML plugin-->
+       <script src="lib/leaflet.plugins/leaflet.kml.js"></script>
+      
+        <!--Bing plugin-->
+        <script src="lib/leaflet.plugins/leaflet.bing-layer.js"></script>
+        
+        <!--Google Maps plugin-->
+        <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+        <script src="lib/leaflet.plugins/leaflet.google-layer.js"></script>
+            
+        <!-- Awesome markers -->
+        <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+          
+        <!--'Discover Leaflet' app itself-->
+		<script src="js/discover-leaflet-app.js"></script>		
+		<script src="js/discover-leaflet-ctrl.js"></script>
+		<script src="js/discover-leaflet-directive.js"></script>
+
+        <!--CSS-->
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css"/>
+        <link rel="stylesheet" type="text/css" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+        <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>		
+        <link rel="stylesheet" type="text/css" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css"/>
+        <link rel="stylesheet" type="text/css" href="css/discover-leaflet.css"/>
+	</head>
+	<body ng-app="leaflet-demo-app">		
+		<div id="content" ng-controller="discoverLeafletCtrl" ng-keypress="nextSlide()">
+          <input tabindex="1" id="fake-input-autofocus" autofocus="autofocus" style="position:absolute" size="1" onblur="setTimeout(function(){$('#fake-input-autofocus').focus()},500)"/>
+          <div class="right-navbar" ng-hide="true">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="container">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#" ng-click="prevSlide()" ><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li ng-repeat="slide in slides"><a href="#" ng-click="gotoSlide(slide.id)">Slide {{slide.id}}</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#" ng-click="nextSlide()"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <ng-include src="'slide'+currentSlide.id+'.html'" class='slideBackground'></ng-include>            
+            <div discover-leaflet="" id="lmap" markers="currentSlide.tblMarkers" layer="currentSlide.currentLayer" overlay="currentSlide.overlay" plugins="currentSlide.plugins"/>
+		</div>
+      
+		<script type="text/ng-template" id="slide1.html">
+            <div class="slide" ng-init='currentSlide.tblMarkers=[{"coord":[47.473743,-0.548812],"label":"<img src=img/human-talks.png width=250 height=217/>"}]' ng-keypress="nextSlide()">
+                <div class="slideIcon"></div>
+                <div class="slideContent">
+                    <h2 class='text-center'><img src='img/leaflet.png'></h2>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h1 class='text-center'><i>A la découverte de Leaflet : une alternative aux API Google Maps</i></h1>
+                    <br/>
+                    <br/>
+                    <h2 class='text-center'><i>Appuyez sur la barre d'espace pour commencer</i></h2>
+                    <br/>
+                    <br/>
+                    <h2 class='text-right'><img src='img/twitter.jpg' width='30px'> @willylambert</h2>
+                </div>
+            </div>
+        </script>
+
+		<script type="text/ng-template" id="slide2.html">
+            <div class="slide slide2" ng-init='currentSlide.tblMarkers=[{"coord":[47.471539,-0.552042],"label":"<img src=img/leaflet.png width=220 height=73/>"}]' ng-keypress="nextSlide()">
+                <div class="slideIcon"></div>
+                <div class="slideContent">
+                    <h1 ng-init="currentSlide.nextSlideAfterKeyPress=5">Leaflet c'est quoi ? </h1>
+                    <br/>
+                    <h2 ng-show="currentSlide.keyRressCount>0"> <img src="img/not-fauve.png" width="50"/> Une librairie javascript Open Source </h2>
+                    <h2 ng-show="currentSlide.keyRressCount>1"> <img src="img/not-fauve.png" width="50"/> Une approche Mobile First</h2>
+                    <h2 ng-show="currentSlide.keyRressCount>2"> <img src="img/fauve.png" width="50"/> Fond cartographique</h2>
+                    <div class="text-center">
+                      <div class="btn-group" ng-show="currentSlide.keyRressCount>3">
+				        <label class="btn btn-default btn-lg" ng-model="currentSlide.currentLayer" btn-radio="'OSM'">Open Street Map</label>
+				        <label class="btn btn-default btn-lg" ng-model="currentSlide.currentLayer" btn-radio="'GM'">Google Maps</label>
+                        <label class="btn btn-default btn-lg" ng-model="currentSlide.currentLayer" btn-radio="'BING'">Bing</label>
+				      </div>
+                    </div>
+                    <div ng-show="currentSlide.keyRressCount>3">
+                      <h2>Et bien d'autres encore : </h2>
+                      <ul class="list-group">
+                          <li class="list-group-item">IGN</li>                          
+                          <li class="list-group-item">MapBox</li>                        
+                          <li class="list-group-item">...</li>                        
+                      </ul>
+                    </div>                    
+                </div>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="slide3.html">
+			<div class='slide' ng-init='currentSlide.tblMarkers=[]' ng-keypress="nextSlide()">
+              <div class="slideIcon"></div>
+              <div class="slideContent">
+				<h1 ng-init="currentSlide.nextSlideAfterKeyPress=4">Comment ca marche ?</h1>
+				<div ng-show="currentSlide.keyRressCount>0">
+                  <h2> Fond de carte </h2>
+                    <div class="text-center">
+                      <div class="btn-group">
+                          <label class="btn btn-default btn-lg" ng-model="currentSlide.currentLayer" ng-click='currentSlide.tblMarkers=[{"coord":[47.471539,-0.552042],"label":"<img src=img/leaflet.png width=220 height=73/>"}]' btn-radio="'OSM'">Open Street Map</label>
+                          <label class="btn btn-default btn-lg" ng-model="currentSlide.currentLayer" btn-radio="'GM'">Google Maps</label>
+                          <label class="btn btn-default btn-lg" ng-model="currentSlide.currentLayer" btn-radio="'BING'">Bing</label>
+                          <label class="btn btn-default btn-lg" ng-model="currentSlide.currentLayer" btn-radio="'MAPBOX'">Mapbox</label>
+                      </div>
+                    </div>
+                </div>
+                <div ng-show="currentSlide.keyRressCount>1">
+                  <h2> Données</h2>
+                  <div class="text-center">
+                      <div class="btn-group">
+                          <label class="btn btn-default btn-lg" ng-model="currentSlide.overlay.ALM_WATER" btn-checkbox>Réseau d'eau potable</label>
+                          <label class="btn btn-default btn-lg" ng-model="currentSlide.overlay.ALM_FIRE" btn-checkbox>Bornes incendie</label>
+                      </div>	
+                      </div>
+                </div>  
+                <div ng-show="currentSlide.keyRressCount>2">
+                  <h2> Plugins </h2>
+                  <div class="text-center">
+                    <div class="btn-group">
+                      <label class="btn btn-default btn-lg" ng-model="currentSlide.plugins.MARKERS_CLUSTER" btn-checkbox>Markers Cluster</label>
+                      <label class="btn btn-default btn-lg" ng-model="currentSlide.plugins.ANIMATED_MARKERS" btn-checkbox>Animated Markers</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+		</script>
+
+		<script type="text/ng-template" id="slide4.html">
+			<div class='slide' ng-init='currentSlide.tblMarkers=[]'>
+              <div class="slideIcon"></div>
+              <div class="slideContent">
+				<h1 ng-init="currentSlide.nextSlideAfterKeyPress=5">Vladimir Agafonkin</h1>
+				<div class="center-block">
+                  <img class="center-block" src="img/Vladimir_Agafonkin.gif"/>
+                </div>
+                <img ng-show="currentSlide.keyRressCount>0" class="center-block" src="img/vlad_twit.png" width="100%"/>
+                <h1 ng-show="currentSlide.keyRressCount>1">156 Contributeurs</h1>
+                <img ng-show="currentSlide.keyRressCount>2" class="center-block" src="img/leaflet_github.png" width="100%"/>
+                <h1 ng-show="currentSlide.keyRressCount>3">+ de 120 plugins</h1>
+            </div>
+		</script>     
+      
+		<script type="text/ng-template" id="slide5.html">
+			<div class='slide' ng-init='currentSlide.tblMarkers=[{"coord":[47.468573,-0.558672],"label":"Pinterest","icon":"img/pinterest.png"},
+                                                                 {"coord":[47.467383,-0.555668],"label":"Foursquare","icon":"img/foursquare.png"},
+                                                                 {"coord":[47.466397,-0.552878],"label":"OSM","icon":"img/osm.png"},
+                                                                 {"coord":[47.467644,-0.55099],"label":"Flickr","icon":"img/flickr.png"},                                                                 
+                                                                 {"coord":[47.472271,-0.55099],"label":"Wikimedia","icon":"img/wikimedia.png"},
+                                                                 {"coord":[47.472286,-0.546227],"label":"Craiglist","icon":"img/craiglist.png"},
+                                                                 {"coord":[47.469617,-0.547342],"label":"Data.gov","icon":"img/data-gov.png"}]'>
+              <div class="slideIcon"></div>
+              <div class="slideContent">
+				<h1 ng-init="currentSlide.nextSlideAfterKeyPress=1">Qui l'utilise ?</h1>
+                <div><img src="img/osm.png" /></div>
+                <div class="row"><div class="pull-right"><img src="img/pinterest.png"/></div></div>
+                <div><img src="img/flickr.png" /></div>
+                <div class="row"><div class="pull-right"><img src="img/foursquare.png" /></div></div>                
+                <div><img src="img/craiglist.png" /></div>
+                <div class="row"><div class="pull-right"><img src="img/wikimedia.png"/></div></div>                
+                <div><div><img src="img/data-gov.png" /></div></div>                
+			</div>
+		</script>             
+      
+		<script type="text/ng-template" id="slide6.html">
+			<div class='slide' ng-init='currentSlide.tblMarkers=[]'>
+              <div class="slideIcon"></div>
+              <div class="slideContent">
+				<h1 ng-init="currentSlide.nextSlideAfterKeyPress=4">A vous de jouer !</h1>
+                <h2>Pour commencer</h2>
+                  <ul>
+                    <li><a href="http://leafletjs.com/">leafletjs.com</a></li>
+                  </ul>
+                <h2>Pour les cartes</h2>
+                  <ul>
+                    <li><a href="http://www.openstreetmap.org">Open Street Map</a></li>
+                    <li><a href="http://www.mapbox.com">Map Box</a></li>
+                  </ul>
+                <h2>Pour les données</h2>
+                  <ul>
+                    <li><a href="http://data.angers.fr/">Open Data Loire Valley : data.angers.fr</a></li>
+                    <li><a href="http://www.data.gouv.fr/">data.gouv.fr</a></li>
+                  </ul>
+            </div>
+		</script>
+      
+		<script type="text/ng-template" id="slide7.html">
+			<div>
+				<h1>A vous de jouer !</h1>
+                <h2>http://www.prodigia.org/discover-leaflet</h2>
+                <h2>https://github.com/willylambert/discover-leaflet</h2>
+			</div>
+		</script>
+      
+	</body>
+</html>

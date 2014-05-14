@@ -1,0 +1,30 @@
+{
+  "name": "discover-leaflet",
+  "version": "1.0.0",
+  "authors": [
+    "Willy LAMBERT <willy.lambert@prodigia.org>"
+  ],
+  "description": "Discover Leaflet",
+  "main": "index.html",
+  "keywords": [
+    "leaflet",
+    "human-talk",
+    "Maine Labs",
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1",
+    "angular": "~1.2"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-bootstrap": "~0.11.0",
+    "Leaflet.awesome-markers": "~2.0.2"
+  }
+}

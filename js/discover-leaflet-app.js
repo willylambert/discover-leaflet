@@ -1,0 +1,1 @@
+var app = angular.module("leaflet-demo-app", ['ui.bootstrap']);
