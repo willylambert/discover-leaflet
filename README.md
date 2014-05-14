@@ -13,10 +13,17 @@ http://www.prodigia.org/discover-leaflet
 
 ## Installation
 
-With bower :
-* **Bower**: `bower install discover-leaflet`
+1*/ Download the latest release :
+https://github.com/willylambert/discover-leaflet/releases/tag/1.0.1
+
+2*/ Resolve dependencies with bower :
+* **Bower**: `bower update`
 
 You will need a webserver to run the presentation (like the node.js package http-server)
+`npm install http-server`
+`http-server`
+
+Access the application from http://localhost:8080
 
 ## Supported browsers
 

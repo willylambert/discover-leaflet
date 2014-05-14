@@ -1,6 +1,6 @@
 {
   "name": "discover-leaflet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     "Willy LAMBERT <willy.lambert@prodigia.org>"
   ],
@@ -23,6 +23,7 @@
   ],
   "devDependencies": {
     "angular-bootstrap": "~0.11.0",
-    "Leaflet.awesome-markers": "~2.0.2"
+    "Leaflet.awesome-markers": "~2.0.2",
+    "leaflet.markercluster": "~0.4.0"
   }
 }
