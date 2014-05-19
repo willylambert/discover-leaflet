@@ -1,7 +1,7 @@
 discover-leaflet
 ================
 
-Human Talks "Discover Leaflet" presentation given by @willylambert at la Maison Des Projet (Angers) on May, 13 2014
+Human Talks "Discover Leaflet" presentation given by @willylambert at la Maison Des Projets (Angers) on May, 13 2014
 
 ## Author
 
